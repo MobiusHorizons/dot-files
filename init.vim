@@ -10,7 +10,7 @@ if has('vim_starting')
 endif
 
 " Required:
-call neobundle#begin(expand('/Users/paulmartin/.vim/bundle'))
+call neobundle#begin(expand('~/.config/nvim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -21,12 +21,16 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
 "NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'Xuyuanp/nerdtree-git-plugin'
+NeoBundle 'ternjs/tern_for_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'Shougo/neocomplete'
+"NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/deoplete.nvim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'justmao945/vim-clang'
 
 
 " You can specify revision/branch/tag.
@@ -43,6 +47,8 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
+let g:deoplete#enable_at_startup = 1
+
 set hidden
 set title
 syntax on
@@ -52,4 +58,5 @@ set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 set backspace=indent,eol,start
 
-:set rnu
+set rnu
+set number
