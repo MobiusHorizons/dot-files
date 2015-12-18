@@ -17,31 +17,22 @@ call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
-"NeoBundle 'Shougo/neosnippet.vim'
-"NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'scrooloose/nerdtree'
-"NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'ternjs/tern_for_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
-"NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/deoplete.nvim'
+"NeoBundle 'Shougo/neocomplete' " for vim only
+NeoBundle 'fatih/vim-go'
+NeoBundle 'Shougo/deoplete.nvim' " for neovim only
 NeoBundle 'bling/vim-airline'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'pangloss/vim-javascript', {'rev' : 'c378730'}
 NeoBundle 'justmao945/vim-clang'
-
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-" Required:
+NeoBundle 'Shutnik/jshint2.vim'
+NeoBundle 'godlygeek/tabular'
 call neobundle#end()
 
-" Required:
 filetype plugin indent on
-
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
@@ -60,3 +51,8 @@ set backspace=indent,eol,start
 
 set rnu
 set number
+set cursorline
+
+" JSHint options
+let jshint2_read = 1
+let jshint2_save = 1
