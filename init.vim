@@ -24,7 +24,8 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'pangloss/vim-javascript' ", {'rev' : 'c378730'}
 
-NeoBundle 'justmao945/vim-clang'
+"NeoBundle 'justmao945/vim-clang'
+NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle 'Shutnik/jshint2.vim'
 NeoBundle 'godlygeek/tabular'
 "NeoBundle 'freeo/vim-kalisi'
@@ -73,3 +74,7 @@ endif
 " JSHint options
 "let jshint2_read = 1
 "let jshint2_save = 1
+    let g:clang_complete_auto = 0
+    let g:clang_auto_select = 0
+    let g:clang_omnicppcomplete_compliance = 0
+    let g:clang_make_default_keymappings = 0
