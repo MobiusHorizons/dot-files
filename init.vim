@@ -13,7 +13,7 @@ call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
-NeoBundle 'ternjs/tern_for_vim'
+NeoBundle 'ternjs/tern_for_vim' { 'do' : 'npm install' }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 "NeoBundle 'Shougo/neocomplete' " for vim only
@@ -39,7 +39,40 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
+" Deoplete settings
 let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" omnifuncs
+augroup omnifuncs
+  autocmd!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
+" tern
+if exists('g:plugs["tern_for_vim"]')
+  let g:tern_show_argument_hints = 'on_hold'
+  let g:tern_show_signature_in_pum = 1
+
+  autocmd FileType javascript setlocal omnifunc=tern:Complete
+endif
+
+" deoplete tab-complete
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+" ,<Tab> for regular tab
+inoremap <Leader><Tab> <Space><Space>
+
+" tern
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+
 
 " General settings
 set hidden
@@ -74,7 +107,5 @@ endif
 " JSHint options
 "let jshint2_read = 1
 "let jshint2_save = 1
-    let g:clang_complete_auto = 0
-    let g:clang_auto_select = 0
-    let g:clang_omnicppcomplete_compliance = 0
-    let g:clang_make_default_keymappings = 0
+
+au FileType javascript setl omnifunc=tern#Complete
