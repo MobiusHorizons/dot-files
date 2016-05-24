@@ -1,4 +1,12 @@
 
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+    UpdateRemotePlugins
+  endif
+endfunction
+
+
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
   " Required:
@@ -13,16 +21,25 @@ call neobundle#begin(expand('~/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
-NeoBundle 'ternjs/tern_for_vim' { 'do' : 'npm install' }
+NeoBundle 'ternjs/tern_for_vim', { 'do' : 'npm install' }
 NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'wincent/command-t'
+NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'scrooloose/nerdcommenter'
 "NeoBundle 'Shougo/neocomplete' " for vim only
 NeoBundle 'fatih/vim-go'
+NeoBundle 'nsf/gocode'
+NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
 NeoBundle 'Shougo/deoplete.nvim' " for neovim only
+NeoBundle 'carlitux/deoplete-ternjs', {'build' : {'mac': 'npm install -g tern', 'unix': 'npm install -g tern'}}
 NeoBundle 'bling/vim-airline'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'pangloss/vim-javascript' ", {'rev' : 'c378730'}
+NeoBundle 'pangloss/vim-javascript' , {'rev' : 'c378730'}
+NeoBundle 'ervandew/supertab'
+NeoBundle "clavery/vim-dwre"
 
 "NeoBundle 'justmao945/vim-clang'
 NeoBundle 'Rip-Rip/clang_complete'
@@ -30,6 +47,11 @@ NeoBundle 'Shutnik/jshint2.vim'
 NeoBundle 'godlygeek/tabular'
 "NeoBundle 'freeo/vim-kalisi'
 NeoBundle 'morhetz/gruvbox'
+NeoBundle 'floobits/floobits-neovim'
+NeoBundle 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+NeoBundle "jaxbot/browserlink.vim.git"
+NeoBundle 'rust-lang/rust.vim'
+NeoBundle 'racer-rust/vim-racer'
 
 call neobundle#end()
 
@@ -64,6 +86,9 @@ if exists('g:plugs["tern_for_vim"]')
   autocmd FileType javascript setlocal omnifunc=tern:Complete
 endif
 
+let g:racer_cmd = "/Users/paulmartin/.cargo/bin/racer"
+let $RUST_SRC_PATH = "/Users/paulmartin/.rust/src"
+
 " deoplete tab-complete
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
 " ,<Tab> for regular tab
@@ -71,6 +96,9 @@ inoremap <Leader><Tab> <Space><Space>
 
 " tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+" fzf
+
 
 
 
@@ -91,8 +119,9 @@ set clipboard+=unnamed,unnamedplus                        " use the system clipb
 "                                 Appearance                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-colorscheme gruvbox
 set background=dark
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " show suggested wrap at 80 and 120

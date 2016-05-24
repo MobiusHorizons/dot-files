@@ -1,6 +1,7 @@
 [alias]
 	st = status
 	upload = push -u origin 
+  tree   = log --graph --decorate --pretty=oneline
 [user]
 	name = Paul Martin
 [push]
