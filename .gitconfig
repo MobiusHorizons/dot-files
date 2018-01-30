@@ -2,7 +2,14 @@
 	st = status
 	upload = push -u origin 
   tree   = log --graph --decorate --pretty=oneline
+  root   = rev-parse --show-toplevel
 [user]
 	name = Paul Martin
 [push]
 	default = current
+
+[diff]
+  tool = nvimdiff
+
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
